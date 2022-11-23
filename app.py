@@ -6,14 +6,14 @@ from slack_sdk.oauth.state_store import FileOAuthStateStore
 from pymongo import MongoClient 
 import re
 
-"""
-SLACK_CLIENT_ID = 4343233466758.4362483114609
-SLACK_CLIENT_SECRET=a10750d5d20b1019e37b04e090e4f259
-SLACK_SIGNING_SECRET=ad1d64008afe01a25caa2e71ddcd1e94
-"""
+
+SLACK_CLIENT_ID = "4343233466758.4362483114609"
+SLACK_CLIENT_SECRET = "a10750d5d20b1019e37b04e090e4f259"
+SLACK_SIGNING_SECRET = "ad1d64008afe01a25caa2e71ddcd1e94"
+
 oauth_settings = OAuthSettings(
-    client_id=os.environ.get("SLACK_CLIENT_ID"), 
-    client_secret=os.environ.get("SLACK_CLIENT_SECRET"), 
+    client_id=SLACK_CLIENT_ID, 
+    client_secret=SLACK_CLIENT_SECRET, 
     scopes=["channels:history", "chat:write", "commands", "groups:history", "im:history", "mpim:history", "users.profile:read", "users:read", "channels:read", "groups:read", "mpim:read", "im:read"],
     installation_store=FileInstallationStore(base_dir="./data/installations"),
     state_store=FileOAuthStateStore(expiration_seconds=600, base_dir="./data/states")
@@ -26,7 +26,7 @@ def get_database():
 
 # Initializes your app with your bot token and signing secret
 app = App(
-    signing_secret=os.environ.get("SLACK_SIGNING_SECRET"), 
+    signing_secret=SLACK_SIGNING_SECRET, 
     oauth_settings=oauth_settings
 )
 
