@@ -8,6 +8,7 @@ import re
 
 SLACK_CLIENT_ID = "4343233466758.4362483114609"
 SLACK_CLIENT_SECRET = "a10750d5d20b1019e37b04e090e4f259"
+SLACK_SIGNING_SECRET = "ad1d64008afe01a25caa2e71ddcd1e94"
 
 oauth_settings = OAuthSettings(
     client_id=SLACK_CLIENT_ID, 
@@ -24,7 +25,7 @@ def get_database():
 
 # Initializes your app with your bot token and signing secret
 app = App(
-    signing_secret=os.environ.get("SLACK_SIGNING_SECRET"), 
+    signing_secret=SLACK_SIGNING_SECRET, 
     oauth_settings=oauth_settings
 )
 
