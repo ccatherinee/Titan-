@@ -1,22 +1,30 @@
 import os
 from slack_bolt import App
 from slack_bolt.oauth.oauth_settings import OAuthSettings
-from slack_sdk.oauth.installation_store import FileInstallationStore
-from slack_sdk.oauth.state_store import FileOAuthStateStore
+# from slack_sdk.oauth.installation_store import FileInstallationStore
+from slack_sdk.oauth.installation_store import AmazonS3InstallationStore
+from slack_sdk.oauth.state_store import AmazonS3OAuthStateStore
 from pymongo import MongoClient 
 import re
+import boto3
 
 """
 SLACK_CLIENT_ID = 4343233466758.4362483114609
 SLACK_CLIENT_SECRET=a10750d5d20b1019e37b04e090e4f259
 SLACK_SIGNING_SECRET=ad1d64008afe01a25caa2e71ddcd1e94
+
+#new info
+SLACK_CLIENT_ID=4422109584035.4445920490512
+SLACK_CLIENT_SECRET=c5be06cae2d96920ea1826c37e56ace2
+SLACK_SIGNING_SECRET=e2b74a15f97a8a920ab2c30ab81764ab
 """
 oauth_settings = OAuthSettings(
     client_id=os.environ.get("SLACK_CLIENT_ID"), 
     client_secret=os.environ.get("SLACK_CLIENT_SECRET"), 
     scopes=["channels:history", "chat:write", "commands", "groups:history", "im:history", "mpim:history", "users.profile:read", "users:read", "channels:read", "groups:read", "mpim:read", "im:read"],
-    installation_store=FileInstallationStore(base_dir="./data/installations"),
-    state_store=FileOAuthStateStore(expiration_seconds=600, base_dir="./data/states")
+    #installation_store=FileInstallationStore(base_dir="./data/installations"),
+    installation_store=AmazonS3InstallationStore(s3_client=boto3.client('s3'), bucket_name='slack-t1tan', client_id=client_id)
+    state_store=AmazonS3OAuthStateStore(s3_client=boto3.client('s3'), bucket_name='slack-t1tan', expiration_seconds=600)
 )
 
 def get_database(): 
