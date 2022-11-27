@@ -2,8 +2,8 @@ import os
 from slack_bolt import App
 from slack_bolt.oauth.oauth_settings import OAuthSettings
 # from slack_sdk.oauth.installation_store import FileInstallationStore
-from slack_sdk.oauth.installation_store import AmazonS3InstallationStore
-from slack_sdk.oauth.state_store import AmazonS3OAuthStateStore
+from slack_sdk.oauth.installation_store.amazon_s3 import AmazonS3InstallationStore
+from slack_sdk.oauth.state_store.amazon_s3 import AmazonS3OAuthStateStore
 from pymongo import MongoClient 
 import re
 import boto3
