@@ -23,7 +23,7 @@ oauth_settings = OAuthSettings(
     client_secret=os.environ.get("SLACK_CLIENT_SECRET"), 
     scopes=["channels:history", "chat:write", "commands", "groups:history", "im:history", "mpim:history", "users.profile:read", "users:read", "channels:read", "groups:read", "mpim:read", "im:read"],
     #installation_store=FileInstallationStore(base_dir="./data/installations"),
-    installation_store=AmazonS3InstallationStore(s3_client=boto3.client('s3'), bucket_name='slack-t1tan', client_id=client_id)
+    installation_store=AmazonS3InstallationStore(s3_client=boto3.client('s3'), bucket_name='slack-t1tan', client_id=client_id),
     state_store=AmazonS3OAuthStateStore(s3_client=boto3.client('s3'), bucket_name='slack-t1tan', expiration_seconds=600)
 )
 
